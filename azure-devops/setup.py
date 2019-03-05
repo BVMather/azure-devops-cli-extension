@@ -8,7 +8,7 @@ import re
 from codecs import open
 from setuptools import setup, find_packages
 
-NAME = 'azure-devops'
+NAME = 'azure-devops-cli-extension'
 
 # To install the library, run the following
 #
@@ -19,7 +19,7 @@ NAME = 'azure-devops'
 
 REQUIRES = [
     'python-dateutil==2.7.3',
-    'msrest>=0.6.0,<0.7.0'
+    'azure-devops==5.0.0b2'
 ]
 
 # Version extraction inspired from 'requests'

@@ -127,10 +127,22 @@ def list_projects(organization=None, top=None, skip=None, detect=None):
     :type skip: int
     :rtype: list of :class:`<TeamProject> <core.v4_0.models.TeamProject>`
     """
-    organization = resolve_instance(detect=detect, organization=organization)
-    core_client = get_core_client(organization)
-    team_projects = core_client.get_projects(state_filter='all', top=top, skip=skip)
-    return team_projects
+    from azure.devops.connection import Connection
+    from msrest.authentication import BasicAuthentication
+    personal_access_token = 'dasssdasda'
+    organization_url = 'https://dev.azure.com/gsaralprivate'
+
+    # Create a connection to the org
+    credentials = BasicAuthentication('', personal_access_token)
+    connection = Connection(base_url=organization_url, creds=credentials)
+
+    from azure.devops.v5_0.client_factory import ClientFactoryV5_0
+    clientFactory = ClientFactoryV5_0(connection)
+
+    coreClient = clientFactory.get_core_client()
+
+    projects = coreClient.get_projects()
+    return projects
 
 
 def _open_project(project):
